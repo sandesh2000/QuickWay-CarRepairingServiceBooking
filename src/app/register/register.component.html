@@ -1,0 +1,39 @@
+
+    <form style="text-align:center;margin-top:2.5em" #frm='ngForm'>
+        <label for="name"><b>Name</b></label><br>
+        <input style="text-align:center" type="text" [(ngModel)]="user.name" id="name" name="name"><br>
+        <label for="emailid"><b>Email-id</b></label><br>
+        <input style="text-align:center" type="email" [(ngModel)]="user.emailid" id="emailid" name="emailid" required
+            #email='ngModel'><br>
+        <div *ngIf="email.invalid && (email.dirty || email.touched)">
+
+            <div class="alert alert-danger" *ngIf="email.errors?.['required']">
+                Email id is required
+            </div>
+            <div class="alert alert-danger" *ngIf="email.errors?.['email']">
+                Email id is invalid
+            </div>
+        </div>
+        <label for="password"><b>Password</b></label><br>
+        <input style="text-align:center" type="password" [(ngModel)]="user.password" id="password" name="password"
+            #pwd='ngModel' required minlength="8"><br>
+        <div *ngIf="pwd.invalid && (pwd.dirty || pwd.touched)">
+            <div class="alert alert-danger" *ngIf="pwd.errors?.['required']">
+                Password is required
+            </div>
+            <div class="alert alert-danger" *ngIf="pwd.errors?.['minlength']">
+                Password should be of 8 characters.
+            </div>
+        </div>
+        <label for="contact"><b>Contact Number</b></label><br>
+    <input style="text-align:center" type="text" [(ngModel)]="user.contact" id="contact" name="contact" #contact='ngModel' required minlength="10"><br>
+    <div *ngIf="contact.invalid && (contact.dirty || contact.touched)">
+        <div class="alert alert-danger" *ngIf="contact.errors?.['required']">
+            Contact Number is required
+        </div>
+        <div class="alert alert-danger" *ngIf="contact.errors?.['minlength']">
+            Contact Number should be of 10 digits.
+        </div>
+    </div>
+        <input type="submit" (click)="saveUser()" value="Register"><br>
+    </form>

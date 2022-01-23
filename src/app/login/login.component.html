@@ -1,0 +1,37 @@
+<div *ngIf="isLoginFailed" class="alert alert-danger">
+    Wrong Login Credentials! Please try again or Register as a New User
+</div>
+<div class="container">
+    <form style="text-align:center;margin-top:6em" #frm='ngForm'>
+        <label for="uname"><b>Email:</b></label><br>
+        <input style="text-align:center" type="email" placeholder="Enter Email-id" [(ngModel)]="user.emailid"
+            name="uname" required #email='ngModel' email><br>
+
+        <div *ngIf="email.invalid && (email.dirty || email.touched)">
+
+            <div class="alert alert-danger" *ngIf="email.errors?.['required'] ">
+                Email id is Required.
+            </div>
+            <div class="alert alert-danger" *ngIf="email.errors?.['email'] ">
+                Email id is Invalid.
+            </div>
+        </div>
+        <label for="psw"><b>Password</b></label><br>
+        <input style="text-align:center" type="password" placeholder="Enter Password" [(ngModel)]="user.password"
+            #pwd='ngModel' name="psw" required minlength="8"><br>
+
+
+        <div *ngIf="pwd.invalid && (pwd.dirty || pwd.touched)">
+            <div class="alert alert-danger" *ngIf="pwd.errors?.['required'] ">
+                Password is Required.
+            </div>
+            <div class="alert alert-danger" *ngIf="pwd.errors?.['minlength'] ">
+                Password needs to have 8 chars.
+            </div>
+        </div>
+        
+        <input type="submit" (click)="login()" value="login"><br>
+
+
+    </form>
+</div>

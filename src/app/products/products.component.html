@@ -1,0 +1,52 @@
+<h3 *ngIf="isCartOpen" style="text-align: center;"><b><u>Order Summary</u></b></h3>
+<form class="search-bar">
+    <input *ngIf="isProductOpen" [(ngModel)]="query" type="text" name="search" pattern=".*\S.*" required>
+    <button class="search-btn" type="submit">
+        <span>Search</span>
+    </button>
+</form>
+
+<body>
+    <div *ngIf="isProductOpen">
+        <table class="table table-dark">
+            <tr>
+                <th>Car</th>
+                <th>Service Type</th>
+                <th>Cost</th>
+                <th>Request Service</th>
+            </tr>
+            <tr *ngFor="let x of services | search:query">
+                <td>{{x.car}}</td>
+                <td>{{x.facility}}</td>
+                <td>{{x.price}}</td>
+                <td><button class="btn btn-info btn-sm" (click)=addToCart(x)>Request</button></td>
+            </tr>
+        </table>
+        <button style="float:right" class="btn btn-success" (click)="showCart()">Checkout</button>
+    </div>
+    <div *ngIf="isCartOpen">
+        <table class="table">
+            <tr>
+                <th>Car</th>
+                <th>Service Type</th>
+                <th>Service Charge</th>
+            </tr>
+            <tr *ngFor="let x of cart">
+                <td>{{x.car}}</td>
+                <td>{{x.facility}}</td>
+                <td>{{x.price}}</td>
+                <td><button class="btn btn-info btn-sm" (click)=removeService(x)>Remove</button></td>
+            </tr>
+            <!--<tr style="text-align:center"><b>Amount to pay: {{finalAmount | currency : "INR"}}</b></tr> -->
+        </table>
+        <div style="float:right">
+            <label style="text-align: center;"><b>Service Charges: {{finalAmount | currency : "INR"}}</b></label><br>
+            <label style="text-align: center;"><b>Labour Charge: {{laborCost | currency : "INR"}}</b></label><br>
+            <label style="text-align: center;"><b>--------------------</b></label><br>
+            <label style="text-align: center;"><b>Total Bill: {{grandTotal | currency : "INR"}}</b></label><br>
+            <button *ngIf="disappearPrintBill()" class="btn btn-success btn-sm" onclick="window.print()">Print Bill</button>
+        </div>
+
+        <button class="btn btn-success btn-sm" (click)="showProduct()">Back to Products</button>
+    </div>
+</body>
