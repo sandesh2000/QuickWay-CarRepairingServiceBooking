@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Garage } from '../model/garage';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,11 +9,21 @@ import { Garage } from '../model/garage';
 export class LoginService {
   users: Garage[] = [];
   currentUser: Garage | null = null;
-  constructor() { }
-
-  registeUser(newuser: Garage) {
+  constructor(private http:HttpClient) { }
+  addUser(user:Garage):Observable<any>{
+    console.log("Add customer service" + JSON.stringify(user))
+    return this.http.post("http://localhost:3000/register/",user,{responseType:'text'});
+  }
+  getAllProducts():Observable<any>{
+    return this.http.get("http://localhost:3000/products");
+  }
+  registerUser(newuser: Garage) {
     this.users.push(newuser);
     console.log("Reg Success" + JSON.stringify(newuser))
+  }
+  loginUser(user: Garage):Observable<any> {
+    this.currentUser=user;
+    return this.http.post("http://localhost:3000/login/",user,{responseType:'text'});
   }
   login(loginUser: Garage): boolean {
     console.log(loginUser)
@@ -24,12 +36,11 @@ export class LoginService {
       this.currentUser = loginUser;
       return true;
     }
-    else 
-      {
-        return false;
-      }
+    else {
+      return false;
+    }
   }
-  getCust(){
+  getCust() {
     return this.users;
   }
   logout() {
@@ -38,6 +49,9 @@ export class LoginService {
   getLoginUser(): Garage | null {
     return this.currentUser;
   }
-  
-}   
+  countCurrentUsers(): number{
+    if(this.users.length>=1) return 1;
+    else return 0;
+  }
+}
 

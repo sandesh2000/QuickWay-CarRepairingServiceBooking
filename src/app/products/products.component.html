@@ -1,18 +1,21 @@
-<h3 *ngIf="isCartOpen" style="text-align: center;"><b><u>Order Summary</u></b></h3>
-<form class="search-bar">
-    <input *ngIf="isProductOpen" [(ngModel)]="query" type="text" name="search" pattern=".*\S.*" required>
-    <button class="search-btn" type="submit">
-        <span>Search</span>
-    </button>
-</form>
 
-<body>
+<h3 *ngIf="isCartOpen" style="text-align: center;"><b><u>Order Summary</u></b></h3>
+<h6 *ngIf="isCartOpen" style="text-align: left;">Booking Date: {{date | date}}</h6>
+<h6 *ngIf="isCartOpen" style="text-align: left;">Time: {{date | date:"shortTime"}}</h6>
+
+
     <div *ngIf="isProductOpen">
+        <form class="search-bar">
+            <input [(ngModel)]="query" type="text" name="search" pattern=".*\S.*" required>
+            <button class="search-btn" type="submit">
+                <span>Search</span>
+            </button>
+        </form>
         <table class="table table-dark">
             <tr>
                 <th>Car</th>
                 <th>Service Type</th>
-                <th>Cost</th>
+                <th>Service Charge</th>
                 <th>Request Service</th>
             </tr>
             <tr *ngFor="let x of services | search:query">
@@ -24,7 +27,8 @@
         </table>
         <button style="float:right" class="btn btn-success" (click)="showCart()">Checkout</button>
     </div>
-    <div *ngIf="isCartOpen">
+    <div *ngIf="isCartOpen" >
+        
         <table class="table">
             <tr>
                 <th>Car</th>
@@ -37,7 +41,7 @@
                 <td>{{x.price}}</td>
                 <td><button class="btn btn-info btn-sm" (click)=removeService(x)>Remove</button></td>
             </tr>
-            <!--<tr style="text-align:center"><b>Amount to pay: {{finalAmount | currency : "INR"}}</b></tr> -->
+            
         </table>
         <div style="float:right">
             <label style="text-align: center;"><b>Service Charges: {{finalAmount | currency : "INR"}}</b></label><br>
@@ -49,4 +53,3 @@
 
         <button class="btn btn-success btn-sm" (click)="showProduct()">Back to Products</button>
     </div>
-</body>

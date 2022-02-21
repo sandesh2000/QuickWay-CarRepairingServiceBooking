@@ -1,6 +1,6 @@
 export class Repair {
  
-    constructor(public car:string,public facility:string,public price:number){
+    constructor(public serviceid:number,public car:string,public facility:string,public price:number){
       
     }
 }

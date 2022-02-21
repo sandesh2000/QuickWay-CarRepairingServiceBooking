@@ -1,4 +1,10 @@
-
+<body >
+    <div class='alert alert-success' *ngIf='msg!=undefined'>
+       <h5>Regsitration Successful!!</h5>
+    </div>
+    <div class='alert alert-success' *ngIf='errMsg!=undefined'>
+       <h5>User already exists, Login!</h5>
+    </div>
     <form style="text-align:center;margin-top:2.5em" #frm='ngForm'>
         <label for="name"><b>Name</b></label><br>
         <input style="text-align:center" type="text" [(ngModel)]="user.name" id="name" name="name"><br>
@@ -26,7 +32,7 @@
             </div>
         </div>
         <label for="contact"><b>Contact Number</b></label><br>
-    <input style="text-align:center" type="text" [(ngModel)]="user.contact" id="contact" name="contact" #contact='ngModel' required minlength="10"><br>
+    <input style="text-align:center" type="text" [(ngModel)]="user.contact" placeholder="Enter Contact No." id="contact" name="contact" #contact='ngModel' required minlength="10"><br>
     <div *ngIf="contact.invalid && (contact.dirty || contact.touched)">
         <div class="alert alert-danger" *ngIf="contact.errors?.['required']">
             Contact Number is required
@@ -35,5 +41,6 @@
             Contact Number should be of 10 digits.
         </div>
     </div>
-        <input type="submit" (click)="saveUser()" value="Register"><br>
+        <input type="submit" (click)="addUser()" value="Register"><br>
     </form>
+</body>

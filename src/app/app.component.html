@@ -1,12 +1,12 @@
-<body >
+<body>
   
   <ul>
     <li><a routerLink="/home">Home</a></li>
     <li><a routerLink="/products">Car Services</a></li>
     <li><a routerLink="/articles">Clients</a></li>
     <div style="float:right">
-    <button type="button" class="btn btn-primary btn-sm" (click)="login()">Login</button> &nbsp;
-    <button type="button" routerLink='/register' class="btn btn-primary btn-sm">Register</button> &nbsp;
+    <button *ngIf="disableLogin()" type="button" class="btn btn-primary btn-sm" (click)="login()">Login</button> &nbsp;
+    <button *ngIf="disableLoginRegister()" type="button" routerLink='/register' class="btn btn-primary btn-sm">Register</button> &nbsp;
     <button  *ngIf="checkLoginStatus()" type="button" class="btn btn-primary btn-sm" (click)="logout()" >Logout</button>
     </div>
   </ul>
